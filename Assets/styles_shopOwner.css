@@ -1,0 +1,288 @@
+/* Additional Styles for Add Product Page */
+form {
+    margin-top: 20px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#confirmation-message {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#confirmation-message p {
+    font-size: 1.2rem;
+    color: green;
+}
+
+#confirmation-message button {
+    background-color: #008CBA;
+}
+
+#confirmation-message button:hover {
+    background-color: #007bb5;
+}
+/* Additional Styles for Bill Generator Page */
+form {
+    margin-top: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#bill-summary {
+    margin-top: 30px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+#bill-summary h3 {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+#bill-summary p {
+    font-size: 1rem;
+}
+
+#bill-summary button {
+    background-color: #008CBA;
+    color: white;
+}
+
+#bill-summary button:hover {
+    background-color: #007bb5;
+}
+/* Dashboard Styling */
+main {
+    padding: 20px;
+}
+
+h2, h3 {
+    color: #333;
+}
+
+table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+nav a {
+    margin-right: 15px;
+    font-size: 1.1rem;
+}
+/* Orders Page Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+nav a {
+    margin-right: 15px;
+    font-size: 1.1rem;
+}
+/* Sales Report Page Styling */
+main {
+    padding: 20px;
+}
+
+h2, h3 {
+    color: #333;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+button {
+    padding: 5px 15px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+nav a {
+    margin-right: 15px;
+    font-size: 1.1rem;
+}
+
+input[type="date"] {
+    padding: 5px;
+    margin-right: 10px;
+}
+/* Update Stock Page Styling */
+main {
+    padding: 20px;
+}
+
+h2 {
+    color: #333;
+}
+
+input[type="text"], input[type="number"], button {
+    padding: 8px;
+    margin: 10px 0;
+    width: 300px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+nav a {
+    margin-right: 15px;
+    font-size: 1.1rem;
+}
+
+#product-info {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f4f4f4;
+}
+
+#product-info p {
+    font-size: 1.1rem;
+    margin: 5px 0;
+}
+/* Bill Items Layout */
+.bill-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: var(--radius);
+}
+
+.bill-item span {
+    width: 20%;
+    font-weight: bold;
+    color: var(--dark-color);
+}
+
+.bill-item input[type="text"],
+.bill-item input[type="number"] {
+    width: 30%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: var(--radius);
+    transition: border-color var(--transition);
+}
+
+.bill-item input[type="text"]:focus,
+.bill-item input[type="number"]:focus {
+    border-color: var(--primary-color);
+}
+
