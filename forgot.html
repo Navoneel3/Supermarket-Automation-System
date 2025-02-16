@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard</title>
+    <link rel="stylesheet" href="../assets/styles_customer.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome, <span id="username"></span></h1>
+        <nav>
+            <a href="cart.html">Cart</a>
+            <a href="order.html">Orders</a>
+            <a href="feedback.html">Feedback</a>
+            <a href="../index.html" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Available Products</h2>
+        <div id="product-list">
+            <!-- Product cards will be dynamically populated -->
+        </div>
+    </main>
+    <script>
+        function loadProducts() {
+            const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+            document.getElementById("username").textContent = currentUser.name;
+
+            const products = JSON.parse(localStorage.getItem("products")) || [];
+            const productList = document.getElementById("product-list");
+            products.forEach(product => {
+                const productCard = document.createElement("div");
+                productCard.className = "product-card";
+                productCard.innerHTML = `
+                    <h3>${product.name}</h3>
+                    <p>Price: $${product.price}</p>
+                    <button onclick="addToCart('${product.id}')">Add to Cart</button>
+                `;
+                productList.appendChild(productCard);
+            });
+        }
+
+        function addToCart(productId) {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.push(productId);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert("Product added to cart!");
+        }
+
+        function logout() {
+            localStorage.removeItem("currentUser");
+        }
+
+        document.addEventListener("DOMContentLoaded", loadProducts);
+    </script>
+</body>
+</html>
