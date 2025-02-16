@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Details</title>
+    <link rel="stylesheet" href="customer.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <h2>Supermarket Admin</h2>
+        </div>
+        
+    </nav>
+    <div class="container">
+        <h1>Customer Details</h1>
+
+        <div class="customer-info">
+            <div class="info-item">
+                <strong>Customer ID:</strong> <span id="customer-id">12345</span>
+            </div>
+            <div class="info-item">
+                <strong>Name:</strong> <span id="customer-name">Olivia Rodrygo</span>
+            </div>
+            <div class="info-item">
+                <strong>Email:</strong> <span id="customer-email">olivia@example.com</span>
+            </div>
+            <div class="info-item">
+                <strong>Phone:</strong> <span id="customer-phone">+1234567890</span>
+            </div>
+            <div class="info-item">
+                <strong>Address:</strong> <span id="customer-address">123 Main Street, City</span>
+            </div>
+            <div class="info-item">
+                <strong>Total Purchases:</strong> <span id="customer-purchases">250</span>
+            </div>
+            <div class="info-item">
+                <strong>Join Date:</strong> <span id="customer-join-date">2022-05-10</span>
+            </div>
+        </div>
+
+        <button class="edit-btn" onclick="editCustomerDetails()">Edit</button>
+        <button class="delete-btn" onclick="deleteCustomer()">Delete</button>
+
+        <div id="edit-form" class="hidden">
+            <h2>Edit Customer Details</h2>
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" value="John Doe">
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" value="john.doe@example.com">
+
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" value="+1234567890">
+
+                <label for="address">Address:</label>
+                <input type="text" id="address" value="123 Main Street, City">
+
+                <label for="purchases">Total Purchases:</label>
+                <input type="number" id="purchases" value="250">
+
+                <label for="join-date">Join Date:</label>
+                <input type="date" id="join-date" value="2022-05-10">
+
+                <button type="button" onclick="saveCustomerDetails()">Save</button>
+                <button type="button" onclick="cancelEdit()">Cancel</button>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Customer Details</h1>
+
+        <div class="customer-info">
+            <div class="info-item">
+                <strong>Customer ID:</strong> <span id="customer-id">12345</span>
+            </div>
+            <div class="info-item">
+                <strong>Name:</strong> <span id="customer-name">John Doe</span>
+            </div>
+            <div class="info-item">
+                <strong>Email:</strong> <span id="customer-email">john.doe@example.com</span>
+            </div>
+            <div class="info-item">
+                <strong>Phone:</strong> <span id="customer-phone">+1234567890</span>
+            </div>
+            <div class="info-item">
+                <strong>Address:</strong> <span id="customer-address">123 Main Street, City</span>
+            </div>
+            <div class="info-item">
+                <strong>Total Purchases:</strong> <span id="customer-purchases">250</span>
+            </div>
+            <div class="info-item">
+                <strong>Join Date:</strong> <span id="customer-join-date">2022-05-10</span>
+            </div>
+        </div>
+
+        <button class="edit-btn" onclick="editCustomerDetails()">Edit</button>
+        <button class="delete-btn" onclick="deleteCustomer()">Delete</button>
+
+        <div id="edit-form" class="hidden">
+            <h2>Edit Customer Details</h2>
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" value="John Doe">
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" value="john.doe@example.com">
+
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" value="+1234567890">
+
+                <label for="address">Address:</label>
+                <input type="text" id="address" value="123 Main Street, City">
+
+                <label for="purchases">Total Purchases:</label>
+                <input type="number" id="purchases" value="250">
+
+                <label for="join-date">Join Date:</label>
+                <input type="date" id="join-date" value="2022-05-10">
+
+                <button type="button" onclick="saveCustomerDetails()">Save</button>
+                <button type="button" onclick="cancelEdit()">Cancel</button>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Customer Details</h1>
+
+        <div class="customer-info">
+            <div class="info-item">
+                <strong>Customer ID:</strong> <span id="customer-id">12345</span>
+            </div>
+            <div class="info-item">
+                <strong>Name:</strong> <span id="customer-name">Sharukh Khan</span>
+            </div>
+            <div class="info-item">
+                <strong>Email:</strong> <span id="customer-email">Srk@example.com</span>
+            </div>
+            <div class="info-item">
+                <strong>Phone:</strong> <span id="customer-phone">+1234567890</span>
+            </div>
+            <div class="info-item">
+                <strong>Address:</strong> <span id="customer-address">123 Main Street, City</span>
+            </div>
+            <div class="info-item">
+                <strong>Total Purchases:</strong> <span id="customer-purchases">250</span>
+            </div>
+            <div class="info-item">
+                <strong>Join Date:</strong> <span id="customer-join-date">2022-05-10</span>
+            </div>
+        </div>
+
+        <button class="edit-btn" onclick="editCustomerDetails()">Edit</button>
+        <button class="delete-btn" onclick="deleteCustomer()">Delete</button>
+
+        <div id="edit-form" class="hidden">
+            <h2>Edit Customer Details</h2>
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" value="John Doe">
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" value="john.doe@example.com">
+
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" value="+1234567890">
+
+                <label for="address">Address:</label>
+                <input type="text" id="address" value="123 Main Street, City">
+
+                <label for="purchases">Total Purchases:</label>
+                <input type="number" id="purchases" value="250">
+
+                <label for="join-date">Join Date:</label>
+                <input type="date" id="join-date" value="2022-05-10">
+
+                <button type="button" onclick="saveCustomerDetails()">Save</button>
+                <button type="button" onclick="cancelEdit()">Cancel</button>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Customer Details</h1>
+
+        <div class="customer-info">
+            <div class="info-item">
+                <strong>Customer ID:</strong> <span id="customer-id">12345</span>
+            </div>
+            <div class="info-item">
+                <strong>Name:</strong> <span id="customer-name">Sansa Starck</span>
+            </div>
+            <div class="info-item">
+                <strong>Email:</strong> <span id="customer-email">sansa@example.com</span>
+            </div>
+            <div class="info-item">
+                <strong>Phone:</strong> <span id="customer-phone">+1234567890</span>
+            </div>
+            <div class="info-item">
+                <strong>Address:</strong> <span id="customer-address">123 Main Street, City</span>
+            </div>
+            <div class="info-item">
+                <strong>Total Purchases:</strong> <span id="customer-purchases">250</span>
+            </div>
+            <div class="info-item">
+                <strong>Join Date:</strong> <span id="customer-join-date">2022-05-10</span>
+            </div>
+        </div>
+
+        <button class="edit-btn" onclick="editCustomerDetails()">Edit</button>
+        <button class="delete-btn" onclick="deleteCustomer()">Delete</button>
+
+        <div id="edit-form" class="hidden">
+            <h2>Edit Customer Details</h2>
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" value="John Doe">
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" value="john.doe@example.com">
+
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" value="+1234567890">
+
+                <label for="address">Address:</label>
+                <input type="text" id="address" value="123 Main Street, City">
+
+                <label for="purchases">Total Purchases:</label>
+                <input type="number" id="purchases" value="250">
+
+                <label for="join-date">Join Date:</label>
+                <input type="date" id="join-date" value="2022-05-10">
+
+                <button type="button" onclick="saveCustomerDetails()">Save</button>
+                <button type="button" onclick="cancelEdit()">Cancel</button>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Customer Details</h1>
+
+        <div class="customer-info">
+            <div class="info-item">
+                <strong>Customer ID:</strong> <span id="customer-id">12345</span>
+            </div>
+            <div class="info-item">
+                <strong>Name:</strong> <span id="customer-name">Mukesh Kumar</span>
+            </div>
+            <div class="info-item">
+                <strong>Email:</strong> <span id="customer-email">mukesh@example.com</span>
+            </div>
+            <div class="info-item">
+                <strong>Phone:</strong> <span id="customer-phone">+1234567890</span>
+            </div>
+            <div class="info-item">
+                <strong>Address:</strong> <span id="customer-address">123 Main Street, City</span>
+            </div>
+            <div class="info-item">
+                <strong>Total Purchases:</strong> <span id="customer-purchases">250</span>
+            </div>
+            <div class="info-item">
+                <strong>Join Date:</strong> <span id="customer-join-date">2022-05-10</span>
+            </div>
+        </div>
+
+        <button class="edit-btn" onclick="editCustomerDetails()">Edit</button>
+        <button class="delete-btn" onclick="deleteCustomer()">Delete</button>
+
+        <div id="edit-form" class="hidden">
+            <h2>Edit Customer Details</h2>
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" value="John Doe">
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" value="john.doe@example.com">
+
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" value="+1234567890">
+
+                <label for="address">Address:</label>
+                <input type="text" id="address" value="123 Main Street, City">
+
+                <label for="purchases">Total Purchases:</label>
+                <input type="number" id="purchases" value="250">
+
+                <label for="join-date">Join Date:</label>
+                <input type="date" id="join-date" value="2022-05-10">
+
+                <button type="button" onclick="saveCustomerDetails()">Save</button>
+                <button type="button" onclick="cancelEdit()">Cancel</button>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Customer Details</h1>
+
+        <div class="customer-info">
+            <div class="info-item">
+                <strong>Customer ID:</strong> <span id="customer-id">12345</span>
+            </div>
+            <div class="info-item">
+                <strong>Name:</strong> <span id="customer-name">Nitin Patel</span>
+            </div>
+            <div class="info-item">
+                <strong>Email:</strong> <span id="customer-email">nitin@example.com</span>
+            </div>
+            <div class="info-item">
+                <strong>Phone:</strong> <span id="customer-phone">+1234567890</span>
+            </div>
+            <div class="info-item">
+                <strong>Address:</strong> <span id="customer-address">123 Main Street, City</span>
+            </div>
+            <div class="info-item">
+                <strong>Total Purchases:</strong> <span id="customer-purchases">250</span>
+            </div>
+            <div class="info-item">
+                <strong>Join Date:</strong> <span id="customer-join-date">2022-05-10</span>
+            </div>
+        </div>
+
+        <button class="edit-btn" onclick="editCustomerDetails()">Edit</button>
+        <button class="delete-btn" onclick="deleteCustomer()">Delete</button>
+
+        <div id="edit-form" class="hidden">
+            <h2>Edit Customer Details</h2>
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" value="John Doe">
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" value="john.doe@example.com">
+
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" value="+1234567890">
+
+                <label for="address">Address:</label>
+                <input type="text" id="address" value="123 Main Street, City">
+
+                <label for="purchases">Total Purchases:</label>
+                <input type="number" id="purchases" value="250">
+
+                <label for="join-date">Join Date:</label>
+                <input type="date" id="join-date" value="2022-05-10">
+
+                <button type="button" onclick="saveCustomerDetails()">Save</button>
+                <button type="button" onclick="cancelEdit()">Cancel</button>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Customer Details</h1>
+
+        <div class="customer-info">
+            <div class="info-item">
+                <strong>Customer ID:</strong> <span id="customer-id">12345</span>
+            </div>
+            <div class="info-item">
+                <strong>Name:</strong> <span id="customer-name">Nil Rai</span>
+            </div>
+            <div class="info-item">
+                <strong>Email:</strong> <span id="customer-email">nil@example.com</span>
+            </div>
+            <div class="info-item">
+                <strong>Phone:</strong> <span id="customer-phone">+1234567890</span>
+            </div>
+            <div class="info-item">
+                <strong>Address:</strong> <span id="customer-address">123 Main Street, City</span>
+            </div>
+            <div class="info-item">
+                <strong>Total Purchases:</strong> <span id="customer-purchases">250</span>
+            </div>
+            <div class="info-item">
+                <strong>Join Date:</strong> <span id="customer-join-date">2022-05-10</span>
+            </div>
+        </div>
+
+        <button class="edit-btn" onclick="editCustomerDetails()">Edit</button>
+        <button class="delete-btn" onclick="deleteCustomer()">Delete</button>
+
+        <div id="edit-form" class="hidden">
+            <h2>Edit Customer Details</h2>
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" value="John Doe">
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" value="john.doe@example.com">
+
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" value="+1234567890">
+
+                <label for="address">Address:</label>
+                <input type="text" id="address" value="123 Main Street, City">
+
+                <label for="purchases">Total Purchases:</label>
+                <input type="number" id="purchases" value="250">
+
+                <label for="join-date">Join Date:</label>
+                <input type="date" id="join-date" value="2022-05-10">
+
+                <button type="button" onclick="saveCustomerDetails()">Save</button>
+                <button type="button" onclick="cancelEdit()">Cancel</button>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Customer Details</h1>
+
+        <div class="customer-info">
+            <div class="info-item">
+                <strong>Customer ID:</strong> <span id="customer-id">12345</span>
+            </div>
+            <div class="info-item">
+                <strong>Name:</strong> <span id="customer-name">Jonnydeep</span>
+            </div>
+            <div class="info-item">
+                <strong>Email:</strong> <span id="customer-email">jonnydeep@example.com</span>
+            </div>
+            <div class="info-item">
+                <strong>Phone:</strong> <span id="customer-phone">+1234567890</span>
+            </div>
+            <div class="info-item">
+                <strong>Address:</strong> <span id="customer-address">123 Main Street, City</span>
+            </div>
+            <div class="info-item">
+                <strong>Total Purchases:</strong> <span id="customer-purchases">250</span>
+            </div>
+            <div class="info-item">
+                <strong>Join Date:</strong> <span id="customer-join-date">2022-05-10</span>
+            </div>
+        </div>
+
+        <button class="edit-btn" onclick="editCustomerDetails()">Edit</button>
+        <button class="delete-btn" onclick="deleteCustomer()">Delete</button>
+
+        <div id="edit-form" class="hidden">
+            <h2>Edit Customer Details</h2>
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" value="John Doe">
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" value="john.doe@example.com">
+
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" value="+1234567890">
+
+                <label for="address">Address:</label>
+                <input type="text" id="address" value="123 Main Street, City">
+
+                <label for="purchases">Total Purchases:</label>
+                <input type="number" id="purchases" value="250">
+
+                <label for="join-date">Join Date:</label>
+                <input type="date" id="join-date" value="2022-05-10">
+
+                <button type="button" onclick="saveCustomerDetails()">Save</button>
+                <button type="button" onclick="cancelEdit()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="customer.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Report</title>
+    <link rel="stylesheet" href="../assets/styles_shopOwner.css">
+</head>
+<body>
+    <header>
+        <h1>Sales Report</h1>
+        <nav>
+            <a href="dashboard.html">Back to Dashboard</a>
+            <a href="customer.html">Manage Customer Details</a>
+            <a href="../index.html" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Generate Sales Report</h2>
+
+            <!-- Date Range Selection -->
+            <label for="date-range">Select Date Range: </label>
+            <input type="date" id="start-date" name="start-date">
+            <input type="date" id="end-date" name="end-date">
+            <button onclick="generateReport()">Generate Report</button>
+        </section>
+
+        <section>
+            <h2>Sales Summary</h2>
+            <table id="sales-summary">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Order Amount</th>
+                        <th>Order Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Sales report data will be inserted here -->
+                </tbody>
+            </table>
+
+            <h3>Total Sales: <span id="total-sales">0.00</span></h3>
+        </section>
+    </main>
+
+    <script>
+        // Simulated sales data (in real-world scenario, data would come from the backend)
+        const salesData = [
+            { orderId: '1001', customerName: 'John Doe', orderAmount: 50.0, orderDate: '2024-12-01' },
+            { orderId: '1002', customerName: 'Jane Smith', orderAmount: 25.5, orderDate: '2024-12-01' },
+            { orderId: '1003', customerName: 'Alice Brown', orderAmount: 120.99, orderDate: '2024-12-02' },
+            { orderId: '1004', customerName: 'Bob White', orderAmount: 75.0, orderDate: '2024-12-03' },
+            { orderId: '1005', customerName: 'Mary Black', orderAmount: 40.5, orderDate: '2024-12-03' }
+        ];
+
+        // Function to generate the sales report based on selected date range
+        function generateReport() {
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+
+            // Filter sales data based on the selected date range
+            const filteredData = salesData.filter(order => {
+                const orderDate = new Date(order.orderDate);
+                return orderDate >= new Date(startDate) && orderDate <= new Date(endDate);
+            });
+
+            // Update the sales report table
+            const salesSummaryTable = document.querySelector('#sales-summary tbody');
+            salesSummaryTable.innerHTML = ''; // Clear existing rows
+
+            let totalSales = 0;
+            filteredData.forEach(order => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${order.orderId}</td>
+                    <td>${order.customerName}</td>
+                    <td>$${order.orderAmount.toFixed(2)}</td>
+                    <td>${order.orderDate}</td>
+                `;
+                salesSummaryTable.appendChild(row);
+
+                totalSales += order.orderAmount;
+            });
+
+            // Update total sales amount
+            document.getElementById('total-sales').textContent = totalSales.toFixed(2);
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem("currentUser");
+            window.location.href = "../index.html"; // Redirect to homepage on logout
+        }
+    </script>
+</body>
+</html>

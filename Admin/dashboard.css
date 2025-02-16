@@ -1,0 +1,123 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Navbar Styles */
+nav {
+    background-color: #2C3E50;
+    padding: 15px 0;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .logo h2 {
+    margin-left: 20px;
+}
+
+nav .nav-links {
+    list-style-type: none;
+    display: flex;
+    margin-right: 20px;
+}
+
+nav .nav-links li {
+    margin: 0 15px;
+}
+
+nav .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+nav .nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* Container for dashboard content */
+.dashboard {
+    margin: 30px;
+}
+
+/* Section Styles */
+.section {
+    margin-bottom: 30px;
+}
+
+.section h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.card h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Home Page */
+header {
+    text-align: center;
+    margin: 50px 0;
+}
+
+header h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.btn-dashboard {
+    background-color: #3498DB;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 18px;
+}
+
+.btn-dashboard:hover {
+    background-color: #2980B9;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    nav .nav-links {
+        display: block;
+        text-align: center;
+    }
+
+    nav .nav-links li {
+        margin: 10px 0;
+    }
+
+    .dashboard {
+        margin: 20px;
+    }
+
+    .card {
+        margin-bottom: 15px;
+    }
+}
