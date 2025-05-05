@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Orders</title>
+    <link rel="stylesheet" href="../assets/styles_shopOwner.css">
+</head>
+<body>
+    <header>
+        <h1>Manage Orders</h1>
+        <nav>
+            <a href="dashboard.html">Back to Dashboard</a>
+            <a href="bill_generator.html">Generate Bill</a>
+            <a href="../index.html" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Orders List</h2>
+            <table id="orders-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Total Amount</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Orders will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script>
+        // Simulated orders data
+        const orders = [
+            { orderId: '1001', customerName: 'John Doe', totalAmount: 50.0, status: 'Shipped' },
+            { orderId: '1002', customerName: 'Jane Smith', totalAmount: 25.5, status: 'Pending' },
+            { orderId: '1003', customerName: 'Alice Brown', totalAmount: 120.99, status: 'Delivered' }
+        ];
+
+        // Function to load orders into the table
+        function loadOrders() {
+            const ordersTableBody = document.querySelector('#orders-table tbody');
+            orders.forEach(order => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${order.orderId}</td>
+                    <td>${order.customerName}</td>
+                    <td>$${order.totalAmount.toFixed(2)}</td>
+                    <td id="status-${order.orderId}">${order.status}</td>
+                    <td>
+                        <button onclick="updateOrderStatus('${order.orderId}')">Update Status</button>
+                        <button onclick="viewOrderDetails('${order.orderId}')">View Details</button>
+                    </td>
+                `;
+                ordersTableBody.appendChild(row);
+            });
+        }
+
+        // Function to update the order status
+        function updateOrderStatus(orderId) {
+            const statusCell = document.getElementById(`status-${orderId}`);
+            const currentStatus = statusCell.innerHTML;
+
+            // Toggle between 'Pending' and 'Shipped'
+            if (currentStatus === 'Pending') {
+                statusCell.innerHTML = 'Shipped';
+            } else if (currentStatus === 'Shipped') {
+                statusCell.innerHTML = 'Delivered';
+            } else {
+                alert('Order is already completed.');
+            }
+        }
+
+        // Function to view order details (redirect to another page or show details in a modal)
+        function viewOrderDetails(orderId) {
+            // In a real app, you would fetch and display detailed order information.
+            // For now, we're just logging the order ID.
+            alert(`Viewing details for Order ID: ${orderId}`);
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem("currentUser");
+            window.location.href = "../index.html"; // Redirect to homepage on logout
+        }
+
+        // Load orders when page loads
+        window.onload = function() {
+            loadOrders();
+        };
+    </script>
+</body>
+</html>
