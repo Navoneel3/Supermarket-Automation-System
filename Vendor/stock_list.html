@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock List</title>
+    <link rel="stylesheet" href="../assets/styles_vendor.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        header nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        main {
+            padding: 2rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 0.5rem;
+            text-align: left;
+        }
+        table th {
+            background-color: #f4f4f4;
+        }
+        button {
+            padding: 0.5rem 1rem;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button.print-btn {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Stock List</h1>
+        <nav>
+            <a href="dashboard.html">Back to Dashboard</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Products in Stock</h2>
+        <table id="stock-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Product Name</th>
+                    <th>Price (USD)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Stock list will be dynamically populated here -->
+            </tbody>
+        </table>
+        <button class="print-btn" onclick="printStockList()">Print Stock List</button>
+    </main>
+
+    <script>
+        // Load stock list from localStorage
+        function loadStockList() {
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            const stockTableBody = document.querySelector('#stock-table tbody');
+
+            if (products.length === 0) {
+                stockTableBody.innerHTML = '<tr><td colspan="3">No products in stock.</td></tr>';
+                return;
+            }
+
+            stockTableBody.innerHTML = '';
+            products.forEach(product => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${product.id}</td>
+                    <td>${product.name}</td>
+                    <td>$${product.price.toFixed(2)}</td>
+                `;
+                stockTableBody.appendChild(row);
+            });
+        }
+
+        // Print the stock list
+        function printStockList() {
+            window.print();
+        }
+
+        // Initialize stock list on page load
+        document.addEventListener('DOMContentLoaded', loadStockList);
+    </script>
+</body>
+</html>
