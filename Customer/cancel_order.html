@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancel Order</title>
+    <link rel="stylesheet" href="../assets/styles_customer.css">
+</head>
+<body>
+    <header>
+        <h1>Cancel Your Order</h1>
+        <nav>
+            <a href="dashboard.html">Back to Dashboard</a>
+            <a href="../index.html" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Your Orders</h2>
+        <div id="order-list">
+            <!-- Order list will be dynamically populated here -->
+        </div>
+
+        <div id="cancel-order-form" style="display: none;">
+            <h3>Are you sure you want to cancel this order?</h3>
+            <button type="button" id="confirm-cancel" onclick="cancelOrder()">Yes, Cancel Order</button>
+            <button type="button" onclick="hideCancelForm()">No, Keep Order</button>
+        </div>
+    </main>
+
+    <script>
+        // Load previous orders from localStorage
+        function loadOrders() {
+            const orders = JSON.parse(localStorage.getItem("orders")) || [];
+            const orderList = document.getElementById("order-list");
+
+            orderList.innerHTML = ""; // Clear existing order list
+
+            if (orders.length === 0) {
+                orderList.innerHTML = "<p>You have no orders to cancel.</p>";
+                return;
+            }
+
+            orders.forEach((order, index) => {
+                const orderItem = document.createElement("div");
+                orderItem.className = "order-item";
+                orderItem.innerHTML = `
+                    <h3>Order #${index + 1}</h3>
+                    <p>Total Price: $${order.totalPrice}</p>
+                    <p>Order Date: ${new Date(order.date).toLocaleString()}</p>
+                    <button onclick="showCancelForm(${index})">Cancel Order</button>
+                `;
+                orderList.appendChild(orderItem);
+            });
+        }
+
+        // Show confirmation to cancel the order
+        function showCancelForm(orderIndex) {
+            document.getElementById("cancel-order-form").style.display = "block";
+            localStorage.setItem("orderToCancel", orderIndex); // Save the order index for later use
+        }
+
+        // Hide cancel form
+        function hideCancelForm() {
+            document.getElementById("cancel-order-form").style.display = "none";
+        }
+
+        // Cancel the order
+        function cancelOrder() {
+            const orderIndex = localStorage.getItem("orderToCancel");
+            if (orderIndex !== null) {
+                let orders = JSON.parse(localStorage.getItem("orders"));
+                orders.splice(orderIndex, 1); // Remove the order at the specified index
+                localStorage.setItem("orders", JSON.stringify(orders)); // Save updated orders
+
+                alert("Your order has been canceled.");
+                loadOrders(); // Refresh the order list
+                hideCancelForm(); // Hide the confirmation form
+            }
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem("currentUser");
+        }
+
+        // Run loadOrders when the page is loaded
+        document.addEventListener("DOMContentLoaded", loadOrders);
+    </script>
+</body>
+</html>

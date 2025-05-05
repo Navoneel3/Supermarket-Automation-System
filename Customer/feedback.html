@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Feedback</title>
+    <link rel="stylesheet" href="../assets/styles_customer.css">
+</head>
+<body>
+    <header>
+        <h1>Leave Feedback</h1>
+        <nav>
+            <a href="dashboard.html">Back to Dashboard</a>
+            <a href="../index.html" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Your Feedback</h2>
+        <form id="feedback-form">
+            <label for="rating">Rating (1 to 5):</label>
+            <select id="rating" required>
+                <option value="1">1 - Very Bad</option>
+                <option value="2">2 - Bad</option>
+                <option value="3">3 - Average</option>
+                <option value="4">4 - Good</option>
+                <option value="5">5 - Excellent</option>
+            </select>
+
+            <label for="comment">Comments:</label>
+            <textarea id="comment" placeholder="Write your feedback here..." required></textarea>
+
+            <button type="button" onclick="submitFeedback()">Submit Feedback</button>
+        </form>
+
+        <div id="feedback-list">
+            <h3>Previous Feedback</h3>
+            <ul>
+                <!-- Feedback list will be dynamically populated here -->
+            </ul>
+        </div>
+    </main>
+
+    <script>
+        // Load and display feedback from localStorage
+        function loadFeedback() {
+            const feedbackList = document.getElementById("feedback-list").querySelector("ul");
+            const feedbacks = JSON.parse(localStorage.getItem("feedbacks")) || [];
+
+            feedbackList.innerHTML = ""; // Clear the existing list
+
+            if (feedbacks.length === 0) {
+                feedbackList.innerHTML = "<p>No feedback yet.</p>";
+                return;
+            }
+
+            feedbacks.forEach(feedback => {
+                const feedbackItem = document.createElement("li");
+                feedbackItem.innerHTML = `
+                    <strong>Rating: ${feedback.rating}</strong><br>
+                    <p>${feedback.comment}</p>
+                `;
+                feedbackList.appendChild(feedbackItem);
+            });
+        }
+
+        // Submit feedback to localStorage
+        function submitFeedback() {
+            const rating = document.getElementById("rating").value;
+            const comment = document.getElementById("comment").value;
+
+            if (!rating || !comment) {
+                alert("Please provide both a rating and comments.");
+                return;
+            }
+
+            const feedback = {
+                user: JSON.parse(localStorage.getItem("currentUser")), // Get current user info from localStorage
+                rating,
+                comment,
+                date: new Date().toISOString()
+            };
+
+            // Store the feedback in localStorage
+            let feedbacks = JSON.parse(localStorage.getItem("feedbacks")) || [];
+            feedbacks.push(feedback);
+            localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
+
+            alert("Thank you for your feedback!");
+            loadFeedback(); // Refresh the feedback list
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem("currentUser");
+        }
+
+        // Run loadFeedback when page is loaded
+        document.addEventListener("DOMContentLoaded", loadFeedback);
+    </script>
+</body>
+</html>

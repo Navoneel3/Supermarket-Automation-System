@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Account</title>
+    <link rel="stylesheet" href="../assets/styles_customer.css">
+</head>
+<body>
+    <header>
+        <h1>Delete Your Account</h1>
+        <nav>
+            <a href="dashboard.html">Back to Dashboard</a>
+            <a href="../index.html" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Are you sure you want to delete your account?</h2>
+        <p>This action cannot be undone. All your data will be permanently removed.</p>
+        <div id="confirmation">
+            <button onclick="confirmDelete()">Yes, Delete My Account</button>
+            <button onclick="cancelDelete()">No, Keep My Account</button>
+        </div>
+    </main>
+
+    <script>
+        // Confirm deletion of the account
+        function confirmDelete() {
+            // Remove user data from localStorage
+            localStorage.removeItem("currentUser");
+            localStorage.removeItem("orders");
+            localStorage.removeItem("feedbacks");
+            localStorage.removeItem("cart");
+
+            alert("Your account has been deleted.");
+            window.location.href = "../index.html"; // Redirect to homepage after account deletion
+        }
+
+        // Cancel account deletion
+        function cancelDelete() {
+            window.location.href = "dashboard.html"; // Redirect back to customer dashboard
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem("currentUser");
+            window.location.href = "../index.html"; // Redirect to homepage on logout
+        }
+    </script>
+</body>
+</html>

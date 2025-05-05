@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard</title>
+    <link rel="stylesheet" href="../assets/styles_customer.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome, <span id="username"></span></h1>
+        <nav>
+            <a href="cart.html">Cart</a>
+            <a href="order.html">Orders</a>
+            <a href="feedback.html">Feedback</a>
+            <a href="../index.html" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Available Products</h2>
+        <div id="product-list">
+            <!-- Product cards will be dynamically populated -->
+        </div>
+    </main>
+    <script>
+        // Store example products in localStorage (for demo purposes)
+        function storeSampleProducts() {
+            const sampleProducts = [
+                {
+                    id: 1,
+                    name: "Apple",
+                    description: "Fresh and juicy apple",
+                    price: 100.00,
+                    stock: 50,
+                    image: "C:\Users\BITTU ROY\Downloads\Project-20241213T073733Z-001 - Copy\Project\customer\apple.jpg"
+                },
+                {
+                    id: 2,
+                    name: "Banana",
+                    description: "Ripe and sweet banana",
+                    price: 80.00,
+                    stock: 30,
+                    image: "banana.jpg"
+                },
+                {
+                    id: 3,
+                    name: "Orange",
+                    description: "Citrusy and tangy orange",
+                    price: 120.00,
+                    stock: 25,
+                    image: "path/to/orange-image.jpg"
+                }
+            ];
+            localStorage.setItem("products", JSON.stringify(sampleProducts));
+        }
+
+        // Function to load products from localStorage and display them
+        function loadProducts() {
+            const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+            if (currentUser) {
+                document.getElementById("username").textContent = currentUser.name;
+            } else {
+                // Handle case when no current user is found (optional)
+                document.getElementById("username").textContent = "Guest";
+            }
+
+            const products = JSON.parse(localStorage.getItem("products")) || [];
+            const productList = document.getElementById("product-list");
+            
+            // Clear existing products (if any)
+            productList.innerHTML = "";
+
+            products.forEach(product => {
+                const productCard = document.createElement("div");
+                productCard.className = "product";
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <h3>${product.name}</h3>
+                    <p>${product.description}</p>
+                    <p><strong>Price:</strong> $${product.price}</p>
+                    <p><strong>Stock:</strong> ${product.stock} available</p>
+                    <button onclick="addToCart(${product.id}, '${product.name}', ${product.price})">Add to Cart</button>
+                `;
+                productList.appendChild(productCard);
+            });
+        }
+
+        // Function to add a product to the cart
+        function addToCart(productId, productName, productPrice) {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            
+            // Check if the product is already in the cart
+            const existingProduct = cart.find(item => item.id === productId);
+            
+            if (existingProduct) {
+                // If the product is already in the cart, increase the quantity
+                existingProduct.quantity += 1;
+            } else {
+                // If the product is not in the cart, add a new product object
+                cart.push({
+                    id: productId,
+                    name: productName,
+                    price: productPrice,
+                    quantity: 1
+                });
+            }
+
+            // Save the updated cart back to localStorage
+            localStorage.setItem("cart", JSON.stringify(cart));
+
+            alert(`${productName} has been added to your cart!`);
+        }
+
+        // Function to log the user out
+        function logout() {
+            localStorage.removeItem("currentUser");
+            window.location.href = "../index.html"; // Redirect to the homepage after logout
+        }
+
+        // Load products on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            // For demo purposes, let's store sample products if not already stored
+            if (!localStorage.getItem("products")) {
+                storeSampleProducts();
+            }
+            loadProducts();
+        });
+
+
+    </script>
+</body>
+</html>

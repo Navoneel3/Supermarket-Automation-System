@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Cart</title>
+    <link rel="stylesheet" href="../assets/styles_customer.css">
+</head>
+<body>
+    <header>
+        <h1>Cart</h1>
+        <nav>
+            <a href="dashboard.html">Back to Dashboard</a>
+            <a href="order.html">Proceed to Order</a>
+            <a href="feedback.html">Feedback</a>
+            <a href="../index.html" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Your Cart Items</h2>
+        <div id="cart-list">
+            <!-- Cart items will be dynamically populated -->
+        </div>
+        <p><strong>Total Price: $<span id="total-price">0.00</span></strong></p>
+        <button onclick="checkout()">Checkout</button>
+        <button onclick="clearCart()">Clear Cart</button> <!-- Clear Cart Button -->
+    </main>
+
+    <script>
+        // Function to load cart items from localStorage
+        function loadCart() {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const cartList = document.getElementById("cart-list");
+            let totalPrice = 0;
+
+            // Clear cart list before re-populating
+            cartList.innerHTML = "";
+
+            if (cart.length === 0) {
+                cartList.innerHTML = "<p>Your cart is empty.</p>";
+            } else {
+                cart.forEach(item => {
+                    const cartItem = document.createElement("div");
+                    cartItem.className = "cart-item";
+                    cartItem.innerHTML = `
+                        <h3>${item.name}</h3>
+                        <p>Price: $${item.price}</p>
+                        <p>Quantity: <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${item.id}, this.value)"></p>
+                        <p>Total: $${item.price * item.quantity}</p>
+                        <button onclick="removeItem(${item.id})">Remove</button>
+                    `;
+                    cartList.appendChild(cartItem);
+                    totalPrice += item.price * item.quantity;
+                });
+            }
+
+            // Update the total price
+            document.getElementById("total-price").textContent = totalPrice.toFixed(2);
+        }
+
+        // Function to remove an item from the cart
+        function removeItem(productId) {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const updatedCart = cart.filter(item => item.id !== productId);
+            localStorage.setItem("cart", JSON.stringify(updatedCart));
+            loadCart(); // Reload the cart
+        }
+
+        // Function to update the quantity of an item in the cart
+        function updateQuantity(productId, newQuantity) {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const updatedCart = cart.map(item => {
+                if (item.id === productId) {
+                    item.quantity = parseInt(newQuantity, 10);
+                }
+                return item;
+            });
+            localStorage.setItem("cart", JSON.stringify(updatedCart));
+            loadCart(); // Reload the cart
+        }
+
+        // Function to clear the entire cart
+        function clearCart() {
+            localStorage.removeItem("cart");
+            loadCart(); // Reload the cart to show it is empty
+        }
+
+        // Function to handle checkout
+        function checkout() {
+            if (confirm("Are you sure you want to proceed to checkout?")) {
+                // Implement checkout logic here (e.g., redirect to checkout page, submit order, etc.)
+                alert("Proceeding to checkout...");
+            }
+        }
+
+        // Function to log the user out
+        function logout() {
+            localStorage.removeItem("currentUser");
+            window.location.href = "../index.html"; // Redirect to the homepage after logout
+        }
+
+        // Load the cart when the page is loaded
+        document.addEventListener("DOMContentLoaded", loadCart);
+    </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Order</title>
+    <link rel="stylesheet" href="../assets/styles_customer.css">
+</head>
+<body>
+    <header>
+        <h1>Place Your Order</h1>
+        <nav>
+            <a href="cart.html">Back to Cart</a>
+            <a href="../index.html" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Review Your Cart</h2>
+        <div id="order-items">
+            <!-- Order items will be dynamically populated -->
+        </div>
+        <div id="total">
+            <h3>Total: $<span id="total-price">0</span></h3>
+        </div>
+
+        <button type="button" onclick="confirmCheckout()">Place Order</button>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+        // Load cart items and calculate total
+        function loadOrder() {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const productList = document.getElementById("order-items");
+            let totalPrice = 0;
+            productList.innerHTML = "";
+
+            if (cart.length === 0) {
+                productList.innerHTML = "<p>Your cart is empty.</p>";
+                document.getElementById("total-price").textContent = totalPrice.toFixed(2);
+                return;
+            }
+
+            cart.forEach(item => {
+                const productCard = document.createElement("div");
+                productCard.className = "product-card";
+                productCard.innerHTML = `
+                    <h3>${item.name}</h3>
+                    <p>Price: $${item.price}</p>
+                    <p>Quantity: ${item.quantity}</p>
+                    <p>Total: $${(item.price * item.quantity).toFixed(2)}</p>
+                `;
+                productList.appendChild(productCard);
+                totalPrice += item.price * item.quantity;
+            });
+
+            document.getElementById("total-price").textContent = totalPrice.toFixed(2);
+        }
+
+        // Confirm checkout and generate PDF bill
+        async function confirmCheckout() {
+            if (confirm("Are you sure you want to place the order?")) {
+                await generatePDF();
+                placeOrder();
+            }
+        }
+
+// Generate PDF bill
+async function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    if (cart.length === 0) {
+        alert("No items in the cart to generate an invoice.");
+        return;
+    }
+
+    // Add title
+    doc.setFontSize(16);
+    doc.text("Order Invoice", 105, 20, { align: "center" });
+    doc.setFontSize(12);
+    doc.text(`Date: ${new Date().toLocaleDateString()}`, 10, 30);
+
+    // Table Header
+    const startX = 10;
+    let startY = 40;
+    const columnWidth = [80, 40, 30, 30]; // Adjust column widths
+    doc.text("Product Name", startX, startY);
+    doc.text("Price", startX + columnWidth[0], startY);
+    doc.text("Quantity", startX + columnWidth[0] + columnWidth[1], startY);
+    doc.text("Total", startX + columnWidth[0] + columnWidth[1] + columnWidth[2], startY);
+
+    startY += 10;
+    doc.setLineWidth(0.5);
+    doc.line(startX, startY - 5, startX + 180, startY - 5); // Horizontal line
+
+    let totalPrice = 0;
+
+    // Table Content
+    cart.forEach(item => {
+        const itemTotal = (item.price * item.quantity).toFixed(2);
+        doc.text(item.name, startX, startY);
+        doc.text(`$${item.price.toFixed(2)}`, startX + columnWidth[0], startY);
+        doc.text(`${item.quantity}`, startX + columnWidth[0] + columnWidth[1], startY);
+        doc.text(`$${itemTotal}`, startX + columnWidth[0] + columnWidth[1] + columnWidth[2], startY);
+
+        totalPrice += parseFloat(itemTotal);
+        startY += 10;
+    });
+
+    // Total Price
+    startY += 10;
+    doc.setLineWidth(0.5);
+    doc.line(startX, startY - 5, startX + 180, startY - 5); // Horizontal line
+    doc.text(`Grand Total: $${totalPrice.toFixed(2)}`, startX, startY);
+
+    // Save PDF
+    doc.save("OrderInvoice.pdf");
+}
+
+
+        // Place the order (Save order details in localStorage)
+        function placeOrder() {
+            const orderDetails = {
+                user: JSON.parse(localStorage.getItem("currentUser")),
+                products: JSON.parse(localStorage.getItem("cart")),
+                totalPrice: document.getElementById("total-price").textContent,
+                date: new Date().toISOString(),
+            };
+
+            // Store the order in localStorage
+            let orders = JSON.parse(localStorage.getItem("orders")) || [];
+            orders.push(orderDetails);
+            localStorage.setItem("orders", JSON.stringify(orders));
+
+            // Clear cart after order is placed
+            localStorage.removeItem("cart");
+
+            alert("Order placed successfully! A PDF invoice has been downloaded.");
+            window.location.href = "dashboard.html"; // Redirect to customer dashboard
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem("currentUser");
+        }
+
+        // Run loadOrder when page is loaded
+        document.addEventListener("DOMContentLoaded", loadOrder);
+    </script>
+</body>
+</html>
