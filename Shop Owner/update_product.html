@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Stock</title>
+    <link rel="stylesheet" href="../assets/styles_shopOwner.css">
+</head>
+<body>
+    <header>
+        <h1>Update Product Stock</h1>
+        <nav>
+            <a href="dashboard.html">Back to Dashboard</a>
+            <a href="orders.html">Manage Orders</a>
+            <a href="../index.html" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Update Product Stock</h2>
+            
+            <label for="product-id">Product ID:</label>
+            <input type="text" id="product-id" name="product-id" placeholder="Enter Product ID" required><br><br>
+
+            <label for="product-name">Product Name:</label>
+            <input type="text" id="product-name" name="product-name" placeholder="Enter Product Name" readonly><br><br>
+
+            <label for="current-stock">Current Stock:</label>
+            <input type="number" id="current-stock" name="current-stock" placeholder="Current Stock Quantity" readonly><br><br>
+
+            <label for="new-stock">New Stock Quantity:</label>
+            <input type="number" id="new-stock" name="new-stock" placeholder="Enter New Stock Quantity" required><br><br>
+
+            <button onclick="updateStock()">Update Stock</button>
+        </section>
+
+        <section>
+            <h2>Product Information</h2>
+            <div id="product-info"></div>
+        </section>
+    </main>
+
+    <script>
+        // Simulated product data (In a real application, this would come from a database)
+        const products = [
+            { id: 'P001', name: 'Product A', stock: 100 },
+            { id: 'P002', name: 'Product B', stock: 50 },
+            { id: 'P003', name: 'Product C', stock: 200 },
+            { id: 'P004', name: 'Product D', stock: 150 }
+        ];
+
+        // Function to search and display product information
+        function searchProduct() {
+            const productId = document.getElementById('product-id').value;
+            const product = products.find(p => p.id === productId);
+
+            if (product) {
+                document.getElementById('product-name').value = product.name;
+                document.getElementById('current-stock').value = product.stock;
+            } else {
+                document.getElementById('product-info').innerHTML = `<p style="color:red;">Product not found</p>`;
+            }
+        }
+
+        // Function to update stock
+        function updateStock() {
+            const productId = document.getElementById('product-id').value;
+            const newStock = parseInt(document.getElementById('new-stock').value);
+            const product = products.find(p => p.id === productId);
+
+            if (product && newStock > 0) {
+                // Update the stock value in the products array
+                product.stock += newStock;
+
+                // Display the updated stock in the product info
+                document.getElementById('product-info').innerHTML = `
+                    <p>Product ID: ${product.id}</p>
+                    <p>Product Name: ${product.name}</p>
+                    <p>Updated Stock Quantity: ${product.stock}</p>
+                `;
+                
+                // Clear input fields
+                document.getElementById('product-id').value = '';
+                document.getElementById('new-stock').value = '';
+            } else {
+                alert('Please enter a valid stock quantity.');
+            }
+        }
+
+        // Event listener for product ID input field
+        document.getElementById('product-id').addEventListener('blur', searchProduct);
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem("currentUser");
+            window.location.href = "../index.html"; // Redirect to homepage on logout
+        }
+    </script>
+</body>
+</html>
