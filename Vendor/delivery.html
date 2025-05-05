@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Management</title>
+    <link rel="stylesheet" href="../assets/styles_vendor.css">
+</head>
+<body>
+    <header>
+        <h1>Manage Deliveries</h1>
+        <nav>
+            <a href="dashboard.html">Back to Dashboard</a>
+            <a href="add_stock.html">Add Stock</a>
+            <a href="requests_stock.html">Manage Stock Requests</a>
+            <a href="../index.html" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Orders Ready for Delivery</h2>
+            <table id="delivery-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Delivery Address</th>
+                        <th>Order Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-body">
+                    <!-- Orders will be populated here via JavaScript -->
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Order Details</h2>
+            <div id="order-details">
+                <!-- Order details will be displayed here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Vendor Portal. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Simulated orders data (in a real application, this would be fetched from the backend)
+        const orders = [
+            { orderId: 'ORD001', customerName: 'John Doe', address: '123 Main St, Springfield', status: 'Pending' },
+            { orderId: 'ORD002', customerName: 'Jane Smith', address: '456 Oak St, Rivertown', status: 'Shipped' },
+            { orderId: 'ORD003', customerName: 'Alice Johnson', address: '789 Pine St, Lakeview', status: 'Pending' }
+        ];
+
+        // Function to populate the orders table
+        function loadOrders() {
+            const ordersBody = document.getElementById('orders-body');
+            ordersBody.innerHTML = '';  // Clear any previous orders
+
+            orders.forEach(order => {
+                const row = document.createElement('tr');
+
+                row.innerHTML = `
+                    <td>${order.orderId}</td>
+                    <td>${order.customerName}</td>
+                    <td>${order.address}</td>
+                    <td>${order.status}</td>
+                    <td><button onclick="viewOrderDetails('${order.orderId}')">View</button></td>
+                `;
+
+                ordersBody.appendChild(row);
+            });
+        }
+
+        // Function to display order details when clicked
+        function viewOrderDetails(orderId) {
+            const order = orders.find(o => o.orderId === orderId);
+
+            if (order) {
+                const orderDetails = document.getElementById('order-details');
+                orderDetails.innerHTML = `
+                    <h3>Order ID: ${order.orderId}</h3>
+                    <p><strong>Customer Name:</strong> ${order.customerName}</p>
+                    <p><strong>Delivery Address:</strong> ${order.address}</p>
+                    <p><strong>Order Status:</strong> ${order.status}</p>
+                    <button onclick="updateOrderStatus('${order.orderId}', 'Shipped')">Mark as Shipped</button>
+                    <button onclick="updateOrderStatus('${order.orderId}', 'Delivered')">Mark as Delivered</button>
+                `;
+            }
+        }
+
+        // Function to update the order status
+        function updateOrderStatus(orderId, newStatus) {
+            const order = orders.find(o => o.orderId === orderId);
+            if (order) {
+                order.status = newStatus;
+                loadOrders();  // Reload the orders table
+                const orderDetails = document.getElementById('order-details');
+                orderDetails.innerHTML = `
+                    <h3>Order ID: ${order.orderId}</h3>
+                    <p><strong>Customer Name:</strong> ${order.customerName}</p>
+                    <p><strong>Delivery Address:</strong> ${order.address}</p>
+                    <p><strong>Order Status:</strong> ${order.status}</p>
+                `;
+            }
+        }
+
+        // Load orders on page load
+        window.onload = loadOrders;
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem("currentUser");
+            window.location.href = "../index.html"; // Redirect to homepage on logout
+        }
+    </script>
+</body>
+</html>

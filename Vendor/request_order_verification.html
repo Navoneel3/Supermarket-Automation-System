@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Request Verification</title>
+    <link rel="stylesheet" href="../assets/styles_vendor.css">
+</head>
+<body>
+    <header>
+        <h1>Stock Request Verification</h1>
+        <nav>
+            <a href="dashboard.html">Back to Dashboard</a>
+            <a href="add_stock.html">Add Stock</a>
+            <a href="delivery.html">Manage Deliveries</a>
+            <a href="../index.html" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Stock Requests</h2>
+            <table id="stock-request-table">
+                <thead>
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Customer Name</th>
+                        <th>Product</th>
+                        <th>Quantity Requested</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="stock-requests-body">
+                    <!-- Stock requests will be populated here via JavaScript -->
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Request Details</h2>
+            <div id="request-details">
+                <!-- Request details will be displayed here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Vendor Portal. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Simulated stock request data (in a real application, this would be fetched from the backend)
+        const stockRequests = [
+            { requestId: 'REQ001', customerName: 'John Doe', product: 'Laptop', quantity: 10, status: 'Pending' },
+            { requestId: 'REQ002', customerName: 'Alice Johnson', product: 'Smartphone', quantity: 5, status: 'Pending' },
+            { requestId: 'REQ003', customerName: 'Mark Lee', product: 'Headphones', quantity: 20, status: 'Verified' }
+        ];
+
+        // Function to populate the stock requests table
+        function loadStockRequests() {
+            const stockRequestsBody = document.getElementById('stock-requests-body');
+            stockRequestsBody.innerHTML = '';  // Clear any previous requests
+
+            stockRequests.forEach(request => {
+                const row = document.createElement('tr');
+
+                row.innerHTML = `
+                    <td>${request.requestId}</td>
+                    <td>${request.customerName}</td>
+                    <td>${request.product}</td>
+                    <td>${request.quantity}</td>
+                    <td>${request.status}</td>
+                    <td><button onclick="viewRequestDetails('${request.requestId}')">View</button></td>
+                `;
+
+                stockRequestsBody.appendChild(row);
+            });
+        }
+
+        // Function to display request details when clicked
+        function viewRequestDetails(requestId) {
+            const request = stockRequests.find(r => r.requestId === requestId);
+
+            if (request) {
+                const requestDetails = document.getElementById('request-details');
+                requestDetails.innerHTML = `
+                    <h3>Request ID: ${request.requestId}</h3>
+                    <p><strong>Customer Name:</strong> ${request.customerName}</p>
+                    <p><strong>Product:</strong> ${request.product}</p>
+                    <p><strong>Quantity Requested:</strong> ${request.quantity}</p>
+                    <p><strong>Status:</strong> ${request.status}</p>
+                    <button onclick="updateRequestStatus('${request.requestId}', 'Verified')">Verify</button>
+                    <button onclick="updateRequestStatus('${request.requestId}', 'Rejected')">Reject</button>
+                `;
+            }
+        }
+
+        // Function to update the stock request status
+        function updateRequestStatus(requestId, newStatus) {
+            const request = stockRequests.find(r => r.requestId === requestId);
+            if (request) {
+                request.status = newStatus;
+                loadStockRequests();  // Reload the stock requests table
+                const requestDetails = document.getElementById('request-details');
+                requestDetails.innerHTML = `
+                    <h3>Request ID: ${request.requestId}</h3>
+                    <p><strong>Customer Name:</strong> ${request.customerName}</p>
+                    <p><strong>Product:</strong> ${request.product}</p>
+                    <p><strong>Quantity Requested:</strong> ${request.quantity}</p>
+                    <p><strong>Status:</strong> ${request.status}</p>
+                `;
+            }
+        }
+
+        // Load stock requests on page load
+        window.onload = loadStockRequests;
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem("currentUser");
+            window.location.href = "../index.html"; // Redirect to homepage on logout
+        }
+    </script>
+</body>
+</html>

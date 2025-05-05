@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Dashboard</title>
+    <link rel="stylesheet" href="../assets/styles_vendor.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        header nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        main {
+            padding: 2rem;
+        }
+        .dashboard-actions ul {
+            list-style: none;
+            padding: 0;
+        }
+        .dashboard-actions ul li {
+            margin: 10px 0;
+        }
+        .dashboard-actions ul li a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+        .stats-container {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .stat-card {
+            flex: 1;
+            background: white;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Vendor Dashboard</h1>
+        <nav>
+            <a href="add_stock.html">Add Stock</a>
+            <a href="requests_stock.html">Manage Stock Requests</a>
+            <a href="delivery.html">Delivery Management</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Welcome Back, Vendor!</h2>
+            <p>Monitor your inventory, manage stock requests, and streamline deliveries all from one place.</p>
+
+            <!-- Quick Stats Section -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3 id="total-products">0</h3>
+                    <p>Total Products</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="pending-requests">0</h3>
+                    <p>Pending Requests</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="upcoming-deliveries">0</h3>
+                    <p>Upcoming Deliveries</p>
+                </div>
+            </div>
+
+            <!-- Quick Actions Section -->
+            <div class="dashboard-actions">
+                <h3>Quick Actions:</h3>
+                <ul>
+                    <li><a href="add_stock.html">Add Product Stock</a></li>
+                    <li><a href="requests_stock.html">View Stock Requests</a></li>
+                    <li><a href="delivery.html">Manage Deliveries</a></li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Vendor Portal. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Mock data for demonstration purposes
+        const mockData = {
+            totalProducts: 120,
+            pendingRequests: 15,
+            upcomingDeliveries: 8
+        };
+
+        // Function to dynamically load dashboard stats
+        function loadDashboardStats() {
+            document.getElementById('total-products').textContent = mockData.totalProducts;
+            document.getElementById('pending-requests').textContent = mockData.pendingRequests;
+            document.getElementById('upcoming-deliveries').textContent = mockData.upcomingDeliveries;
+        }
+
+        // Logout function with confirmation
+        function logout() {
+            if (confirm("Are you sure you want to logout?")) {
+                localStorage.removeItem("currentUser");
+                window.location.href = "../index.html";
+            }
+        }
+
+        // Initialize dashboard on page load
+        document.addEventListener('DOMContentLoaded', loadDashboardStats);
+    </script>
+</body>
+</html>
+
